@@ -21,15 +21,15 @@ const UserDetail = ({item}) => {
           <Text
             className="flex-1 p-1 text-xl font-extrabold"
             style={{marginLeft: 15}}>
-            {item.name}  
+            {item?.name}  
           </Text>
 
          
           <View className="flex-row">
             <Text className=" p-1 text-lg " style={{marginLeft: 15}}>
-              {item.city}
+              {item?.city}
             </Text>
-            <Text className=" p-1 text-lg">,{item.state}</Text>
+            <Text className=" p-1 text-lg">,{item?.state}</Text>
           </View>
         </View>
       </View>

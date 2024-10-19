@@ -36,6 +36,12 @@ const BookingPage = () => {
       if (response) {
         // Alert.alert(response.message);
         console.log('data save successfully', response?.data);
+        setValues({
+          name: '',
+      email: '',
+      mobile: 0,
+      message: '',
+        })
       } else {
         // Alert.alert(response.message);
         console.log('data not not save successfully');
@@ -97,7 +103,7 @@ const BookingPage = () => {
             className="border-2 rounded-xl p-2 text-xl mt-3"
             style={{width: '90%'}}
             onChangeText={handleChange('name')}
-            value={values.name}></TextInput>
+            value={values?.name}></TextInput>
         </View>
         <View className="mt-2">
           <Text className="font-extrabold">Email</Text>
@@ -105,7 +111,7 @@ const BookingPage = () => {
             className="border-2 rounded-xl p-2 mt-3"
             style={{width: '90%'}}
             onChangeText={handleChange('email')}
-            value={values.email}></TextInput>
+            value={values?.email}></TextInput>
         </View>
         <View>
           <Text className="font-extrabold">Mobile</Text>

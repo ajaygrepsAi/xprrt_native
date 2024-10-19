@@ -64,11 +64,11 @@ const ListingUserDetail = () => {
       </View>
       <View className="flex-row mt-3">
         <View className="flex-1">
-          <Text className="text-xl font-extrabold">{UserData.name}</Text>
+          <Text className="text-xl font-extrabold">{UserData?.name}</Text>
         </View>
         <View className="flex-1">
           <Text className="text-sm font-extrabold">
-            {UserData.city},{UserData.state}
+            {UserData?.city},{UserData?.state}
           </Text>
         </View>
       </View>
@@ -88,7 +88,7 @@ const ListingUserDetail = () => {
         )}
       </View>
       <View>
-        <Text className="text-2xl font-semibold mt-2">About {UserData.name?UserData.name:"Author"}</Text>
+        <Text className="text-2xl font-semibold mt-2">About {UserData?.name?UserData?.name:"Author"}</Text>
         <Text className="mt-2">{professionalData?.bio}</Text>
       </View>
       <View>
@@ -97,10 +97,10 @@ const ListingUserDetail = () => {
           professionalData?.skill?.map( item => (
             <View className="flex-row justify-between">
               <Text className="flex-1 bg-slate-300 p-3 mt-2 text-lg">
-                 {item.name}
+                 {item?.name}
               </Text>
               <Text className="bg-slate-300 p-3 mt-2 text-lg">
-                 {item.level}
+                 {item?.level}
               </Text>
             </View>
           ))
@@ -130,10 +130,10 @@ const ListingUserDetail = () => {
           professionalData?.education?.map( item => (
             <View className="flex-row justify-between">
               <Text className="flex-1 bg-slate-300 p-3 mt-2 text-sm">
-                 {item.degree} - {item.subjects}
+                 {item?.degree} - {item?.subjects}
               </Text>
               <Text className="bg-slate-300 p-3 mt-2 text-sm">
-                 {item.university} - {item.passing_year}
+                 {item?.university} - {item?.passing_year}
               </Text>
             </View>
           ))
@@ -146,18 +146,18 @@ const ListingUserDetail = () => {
             <>
             <View className="flex-row justify-between">
               <Text className="flex-1 bg-slate-300 p-3 mt-2 text-sm">
-                 {item.job_title} 
+                 {item?.job_title} 
               </Text>
               <Text className="bg-slate-300 p-3 mt-2 text-sm">
-                 {item.location}
+                 {item?.location}
               </Text>
             </View>
             <View className="flex-row justify-between ">
               <Text className="flex-1 bg-slate-300 p-3 mt-2 text-sm">
-                 {item.company_name} 
+                 {item?.company_name} 
               </Text>
               <Text className="bg-slate-300 p-3 mt-2 text-sm">
-              {item && item.startdate && dayjs(item.startdate).format("DD-MM-YYYY")} - {item && item.enddate && dayjs(item.enddate).format("DD-MM-YYYY")}
+              {item && item?.startdate && dayjs(item?.startdate).format("DD-MM-YYYY")} - {item && item?.enddate && dayjs(item?.enddate).format("DD-MM-YYYY")}
               </Text>
             </View>
             </>

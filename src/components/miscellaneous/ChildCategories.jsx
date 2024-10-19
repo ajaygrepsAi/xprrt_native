@@ -41,24 +41,24 @@ const ChildCategories = ({ data, heading, subheading }) => {
 export default ChildCategories;
 
 const CardItem = ({item,index,parent}) => {
-    const firstData = item.at(0)
+    const firstData = item?.at(0)
     // console.log(firstData,"item-----value ")
 
   const navigation = useNavigation()
   const handleClick = ()=>{
     let childdata = firstData.child.map(item=>item.name)
-    console.log("item.name------in ChildCategories",childdata,firstData.name)
-    console.log("item.praent name --------in ChildCategories",parent[0],index)
+    // console.log("item.name------in ChildCategories",childdata,firstData?.name)
+    // console.log("item.praent name --------in ChildCategories",parent[0],index)
     navigation.navigate('filterpage')
   }
   
   return (
     <View style={{ margin: 10, padding: 10 }} className="">
-  {firstData && firstData.icon ? (
+  {firstData && firstData?.icon ? (
     <View>
      <Pressable onPress={handleClick}>
      <Image
-        source={{ uri: firstData.icon }}
+        source={{ uri: firstData?.icon }}
         style={{ width: 100, height: 100, borderRadius: 10 }}
         className="mt-2"
       />
@@ -73,7 +73,7 @@ const CardItem = ({item,index,parent}) => {
       />
     </View>
   )}
-  <Text style={{ fontSize: 16.5, marginTop: 10 }}>{firstData.name}</Text>
+  <Text style={{ fontSize: 16.5, marginTop: 10 }}>{firstData?.name}</Text>
 </View>
 
   );

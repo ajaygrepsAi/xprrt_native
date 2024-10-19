@@ -48,8 +48,8 @@ const CardItem = ({item,index,parent}) => {
   const handleClick = ()=>{
 
      let childdata = firstData.child.map(item=>item.name)
-    console.log("item.name------in secondChildCategories",childdata,firstData.name)
-    console.log("item.praent name --------in secondChildCategories",parent[1],index)
+    // console.log("item.name------in secondChildCategories",childdata,firstData.name)
+    // console.log("item.praent name --------in secondChildCategories",parent[1],index)
     navigation.navigate('filterpage')
   }
   
@@ -74,7 +74,7 @@ const CardItem = ({item,index,parent}) => {
       />
     </View>
   )}
-  <Text style={{ fontSize: 16, marginTop: 10 }}>{firstData.name}</Text>
+  <Text style={{ fontSize: 16, marginTop: 10 }}>{firstData?.name}</Text>
 </View>
 
   );

@@ -16,7 +16,7 @@ const OnboardingPage = () => {
   }
 
   const  handleSkip = ()=>{
-    navigation.navigate("accounts")
+    navigation.navigate("login")
   }
 
   return (

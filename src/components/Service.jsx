@@ -202,7 +202,7 @@ const Service = () => {
         </View>
 
         <TouchableOpacity className="border-2 mt-5 p-2 rounded-xl bg-blue-900" onPress={handleSubmit}>
-           <Text className="p-2 text-xl font-bold text-center text-white">Save Detail</Text>
+           <Text className="p-2 text-xl font-bold text-center text-white">{userData ? "Edit Details" : "Save Detail"}</Text>
         </TouchableOpacity>
 
       </View>

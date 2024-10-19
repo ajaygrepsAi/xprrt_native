@@ -1,4 +1,4 @@
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import React,{useState} from 'react'
 import { Dimensions, FlatList, Text, TextComponent, TouchableOpacity, View } from 'react-native'
 import OnboardChildItem from '../OnboardChildItem'
@@ -8,9 +8,10 @@ import { API } from '../../../constants/constant'
 import { GetAsyncData } from '../../../utils/common'
 
 const OnboardGrandChildCategory = () => {
+  const navigation = useNavigation()
     const [categoryValue,setCategoryValue] = useState([]);
     const route = useRoute()    
-    const {item} = route.params
+    const {item} = route.params 
     const {id} = route.params
     const {name} = route.params
     const {width,height} = Dimensions.get('window')
@@ -34,7 +35,10 @@ const OnboardGrandChildCategory = () => {
         console.log("response.data-----onboard grandchile updated---")
         const token = await GetAsyncData("token")
         console.log(token)
+       setTimeout(() => {
+        navigation.navigate('accounts')
 
+       }, 500);
       }else{
         console.log("data ----not come ----in grand child categories---")
       }

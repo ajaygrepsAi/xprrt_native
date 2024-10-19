@@ -45,7 +45,7 @@ const FilterComponent = ({
     }
   };
 
-  const handleCheckboxToggle = itemId => {
+  const handleCheckboxToggle = (itemId) => {
     if (selectedId.includes(itemId)) {
       setSelectedId(prevIds => prevIds.filter(id => id !== itemId)); // Deselect if already selected
     } else {
@@ -105,7 +105,7 @@ const FilterComponent = ({
                     style={styles.checkbox}
                     key={item.id}
                   />
-                  <Text style={styles.label}>{item.name}</Text>
+                  <Text style={styles.label}>{item?.name}</Text>
                 </View>
               </View>
             </View>

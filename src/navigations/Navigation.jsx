@@ -52,178 +52,112 @@ const MyStack = () => {
 
  if(showOnboarded){
     return (
-      // <NavigationContainer>
-      
         <Stack.Navigator initialRouteName='xprrt'>
           <Stack.Screen
             name="xprrt"
             component={WelcomeScreen}
             options={{title: ' Expert Welcome'}}
           />
-          <Stack.Screen name="onboard" component={OnboardingScreen} options={{title: 'Onboard screen'}}/>
-          <Stack.Screen name="login" component={LoginScreen} options={{title: 'Login  screen'}}/>
-          <Stack.Screen name="otp" component={OtpScreen} options={{title: 'OTP  screen'}}/>
-          <Stack.Screen name="personal" component={PersonalScreen} options={{title: 'Personal screen'}}/>
-          <Stack.Screen name="service" component={ServiceScreen} options={{title: 'Service screen'}}/>
-          <Stack.Screen name="cover" component={CoverScreen} options={{title: 'Cover screen'}}/>
-          <Stack.Screen name="accounts" component={AccountScreen} options={{title: 'Account screen'}}/>
-          <Stack.Screen name="onboardxprrt" component={OnboardScreen} options={{title: 'OnboardXprrt screen'}}/>
-          <Stack.Screen name="home" component={HomeScreen} options={{title: 'Home screen'}}/>
-          <Stack.Screen name="filterpage" component={FilterPageScreen} options={{title: 'Filter Categories Screen'}}/>
-          <Stack.Screen name="contact" component={ContactScreen} options={{title: 'Contact Screen'}}/>
-          <Stack.Screen name="details" component={ListingUserDetail} options={{title: 'Listing detail Screen'}}/>
-          <Stack.Screen name="booking" component={BookingScreen} options={{title: 'Booking Screen'}}/>
-          <Stack.Screen name="onboardchild" component={OnboardChildScreen} options={{title: ' Onboard Child Screen'}}/>
-          <Stack.Screen name="onboardgrandchild" component={OnboardGrandChildScreen} options={{title: ' Onboard grand Child Screen'}}/>
+            <Stack.Screen name="onboard" component={OnboardingScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="login" component={LoginScreen} options={{ headerShown: false }}/>
+            <Stack.Screen name="otp" component={OtpScreen} options={{ headerShown: false }}/>
+          <Stack.Screen name="personal" component={PersonalScreen} options={{ headerShown: false }}/>
+          <Stack.Screen name="service" component={ServiceScreen} options={{ headerShown: false }}/>
+          <Stack.Screen name="cover" component={CoverScreen} options={{ headerShown: false }}/>
+          <Stack.Screen name="accounts" component={AccountScreen} options={{ headerShown: false }}/>
+          <Stack.Screen name="onboardxprrt" component={OnboardScreen} options={{ headerShown: false }}/>
+          <Stack.Screen name="home" component={BottomNavigation} options={{ headerShown: false }}/>
+          <Stack.Screen name="filterpage" component={FilterPageScreen} options={{ headerShown: false }}/>
+          <Stack.Screen name="contact" component={ContactScreen} options={{ headerShown: false }}/>
+          <Stack.Screen name="details" component={ListingUserDetail} options={{ headerShown: false }}/>
+          <Stack.Screen name="booking" component={BookingScreen} options={{ headerShown: false }}/>
+          <Stack.Screen name="onboardchild" component={OnboardChildScreen} options={{ headerShown: false }}/>
+          <Stack.Screen name="onboardgrandchild" component={OnboardGrandChildScreen} options={{ headerShown: false }}/>
         </Stack.Navigator>
       // </NavigationContainer>
     );
   }else{
     return (
-    //   <NavigationContainer >
-    //     {
-    //       isAuthenticated  ? (
-    //         <>
-    //           <Tab.Navigator>
-    //   <Tab.Screen name="home" component={HomeScreen} />
-    //   <Tab.Screen name="contact" component={ContactScreen} />
-    // </Tab.Navigator>
-    //         <Stack.Navigator initialRouteName='home'>
-    //       <Stack.Screen
-    //         name="xprrt"
-    //         component={WelcomeScreen}
-    //         options={{title: ' Expert Welcome'}}
-    //       />
-    //       <Stack.Screen name="onboard" component={OnboardingScreen} options={{title: 'Onboard screen'}}/>
-    //       <Stack.Screen name="login" component={LoginScreen} options={{title: 'Login  screen'}}/>
-    //       <Stack.Screen name="otp" component={OtpScreen} options={{title: 'OTP  screen'}}/>
-    //       <Stack.Screen name="personal" component={PersonalScreen} options={{title: 'Personal screen'}}/>
-    //       <Stack.Screen name="service" component={ServiceScreen} options={{title: 'Service screen'}}/>
-    //       <Stack.Screen name="cover" component={CoverScreen} options={{title: 'Cover screen'}}/>
-    //       <Stack.Screen name="accounts" component={AccountScreen} options={{title: 'Account screen'}}/>
-    //       <Stack.Screen name="onboardxprrt" component={OnboardScreen} options={{title: 'OnboardXprrt screen'}}/>
-    //       <Stack.Screen name="home" component={HomeScreen} options={{title: 'Home screen'}}/>
-    //       <Stack.Screen name="filterpage" component={FilterPageScreen} options={{title: 'Filter Categories Screen'}}/>
-    //       <Stack.Screen name="contact" component={ContactScreen} options={{title: 'Contact Screen'}}/>
-    //       <Stack.Screen name="details" component={ListingUserDetail} options={{title: 'Listing detail Screen'}}/>
-    //       <Stack.Screen name="booking" component={BookingScreen} options={{title: 'Booking Screen'}}/>
-    //       <Stack.Screen name="onboardchild" component={OnboardChildScreen} options={{title: ' Onboard Child Screen'}}/>
-    //       <Stack.Screen name="onboardgrandchild" component={OnboardGrandChildScreen} options={{title: ' Onboard grand Child Screen'}}/>
-    //     </Stack.Navigator></>
-    //       ):(
-    //       <>
-    //         <Tab.Navigator>
-    //   <Tab.Screen name="home" component={HomeScreen} />
-    //   <Tab.Screen name="contact" component={ContactScreen} />
-    // </Tab.Navigator>
-    //       <Stack.Navigator initialRouteName='home'
-    //       >
-    //       <Stack.Screen
-    //         name="xprrt"
-    //         component={WelcomeScreen}
-    //         options={{title: ' Expert Welcome'}}
-    //       />
-    //       <Stack.Screen name="onboard" component={OnboardingScreen} options={{title: 'Onboard screen'}}/>
-    //       <Stack.Screen name="login" component={LoginScreen} options={{title: 'Login  screen'}}/>
-    //       <Stack.Screen name="otp" component={OtpScreen} options={{title: 'OTP  screen'}}/>
-    //       <Stack.Screen name="personal" component={PersonalScreen} options={{title: 'Personal screen'}}/>
-    //       <Stack.Screen name="service" component={ServiceScreen} options={{title: 'Service screen'}}/>
-    //       <Stack.Screen name="cover" component={CoverScreen} options={{title: 'Cover screen'}}/>
-    //       <Stack.Screen name="accounts" component={AccountScreen} options={{title: 'Account screen'}}/>
-    //       <Stack.Screen name="onboardxprrt" component={OnboardScreen} options={{title: 'OnboardXprrt screen'}}/>
-    //       <Stack.Screen name="home" component={HomeScreen} options={{title: 'Home screen'}}/>
-    //       <Stack.Screen name="filterpage" component={FilterPageScreen} options={{title: 'Filter Categories Screen'}}/>
-    //       <Stack.Screen name="contact" component={ContactScreen} options={{title: 'Contact Screen'}}/>
-    //       <Stack.Screen name="details" component={ListingUserDetail} options={{title: 'Listing detail Screen'}}/>
-    //       <Stack.Screen name="booking" component={BookingScreen} options={{title: 'Booking Screen'}}/>
-    //       <Stack.Screen name="onboardchild" component={OnboardChildScreen} options={{title: ' Onboard Child Screen'}}/>
-    //       <Stack.Screen name="onboardgrandchild" component={OnboardGrandChildScreen} options={{title: ' Onboard grand Child Screen'}}/>
-    //     </Stack.Navigator></>
-    //       )
-    //     }
-    //   </NavigationContainer>
-
-    // <NavigationContainer>
+   
       <>
     {showOnboarded ? (
        <>
-       <Tab.Navigator>
-       <Tab.Screen name="home" component={HomeScreen} />
-       <Tab.Screen name="contact" component={ContactScreen} />
-     </Tab.Navigator>
+       
         <Stack.Navigator initialRouteName="xprrt">
         <Stack.Screen
           name="xprrt"
           component={WelcomeScreen}
-          options={{ title: 'Expert Welcome' }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="onboard"
           component={OnboardingScreen}
-          options={{ title: 'Onboard Screen' }}
+          options={{ headerShown: false }}
         />
-        <Stack.Screen name="login" component={LoginScreen} />
-        <Stack.Screen name="otp" component={OtpScreen} />
-        <Stack.Screen name="personal" component={PersonalScreen} />
-        <Stack.Screen name="service" component={ServiceScreen} />
-        <Stack.Screen name="cover" component={CoverScreen} />
-        <Stack.Screen name="accounts" component={AccountScreen} />
-        <Stack.Screen name="contact" component={ContactScreen} />
+        <Stack.Screen name="login" component={LoginScreen} options={{ headerShown: false  , gestureEnabled: false,}}/>
+        <Stack.Screen name="otp" component={OtpScreen} options={{ headerShown: false , gestureEnabled: false,}}/>
+        <Stack.Screen name="personal" component={PersonalScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="service" component={ServiceScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="cover" component={CoverScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="accounts" component={AccountScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="contact" component={ContactScreen} options={{ headerShown: false }}/>
         <Stack.Screen
           name="onboardxprrt"
           component={OnboardScreen}
           options={{ title: 'OnboardXprrt Screen' }}
         />
-        <Stack.Screen name="home" component={HomeScreen} />
-        <Stack.Screen name="filterpage" component={FilterPageScreen} />
-        <Stack.Screen name="details" component={ListingUserDetail} />
-        <Stack.Screen name="booking" component={BookingScreen} />
-        <Stack.Screen name="onboardchild" component={OnboardChildScreen} />
-        <Stack.Screen name="onboardgrandchild" component={OnboardGrandChildScreen} />
-        <Stack.Screen name="professional" component={ProfessionalScreen} />
+        <Stack.Screen name="home" component={BottomNavigation} options={{ headerShown: false }}/>
+        <Stack.Screen name="filterpage" component={FilterPageScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="details" component={ListingUserDetail} options={{ headerShown: false }} />
+        <Stack.Screen name="booking" component={BookingScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="onboardchild" component={OnboardChildScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="onboardgrandchild" component={OnboardGrandChildScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="professional" component={ProfessionalScreen} options={{ headerShown: false }}/>
       </Stack.Navigator>
        </>
      
     ) : isAuthenticated ? (
       <>
+      {/* <Tab.Navigator>
+       <Tab.Screen name="home" component={HomeScreen} />
+       <Tab.Screen name="contact" component={ContactScreen} />
+     </Tab.Navigator> */}
      
       <Stack.Navigator >
         
-        <Stack.Screen name="home" component={HomeScreen} />
         
-        <Stack.Screen name="filterpage" component={FilterPageScreen} />
-        <Stack.Screen name="details" component={ListingUserDetail} />
-        <Stack.Screen name="booking" component={BookingScreen} />
-        <Stack.Screen name="contact" component={ContactScreen} />
-        <Stack.Screen name="onboardchild" component={OnboardChildScreen} />
-        <Stack.Screen name="onboardgrandchild" component={OnboardGrandChildScreen} />
-        <Stack.Screen name="personal" component={PersonalScreen} />
-        <Stack.Screen name="service" component={ServiceScreen} />
-        <Stack.Screen name="cover" component={CoverScreen} />
-        <Stack.Screen name="accounts" component={AccountScreen} />
+        <Stack.Screen name="home" component={BottomNavigation} options={{ headerShown: false }}/>
+        
+        <Stack.Screen name="filterpage" component={FilterPageScreen} options={{ headerShown: false  }}/>
+        <Stack.Screen name="details" component={ListingUserDetail} options={{ headerShown: false }} />
+        <Stack.Screen name="booking" component={BookingScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="contact" component={ContactScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="onboardchild" component={OnboardChildScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="onboardgrandchild" component={OnboardGrandChildScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="personal" component={PersonalScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="service" component={ServiceScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="cover" component={CoverScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="accounts" component={AccountScreen} options={{ headerShown: false }}/>
+        {/* <Stack.Screen name="login" component={LoginScreen} options={{ headerShown: false , gestureEnabled: false,}}/>
+        <Stack.Screen name="otp" component={OtpScreen} options={{ headerShown: false, gestureEnabled: false, }}/> */}
         <Stack.Screen
           name="onboardxprrt"
           component={OnboardScreen}
-          options={{ title: 'OnboardXprrt Screen' }}
+          options={{ headerShown: false }}
         />
-         <Stack.Screen name="professional" component={ProfessionalScreen} />
+         <Stack.Screen name="professional" component={ProfessionalScreen} options={{ headerShown: false }}/>
       </Stack.Navigator>
     
       </>
     ) : (
-      <Stack.Navigator initialRouteName="login">
-        <Stack.Screen name="login" component={LoginScreen} />
-        <Stack.Screen name="otp" component={OtpScreen} />
-        {/* <Stack.Screen name="personal" component={PersonalScreen} />
-        <Stack.Screen name="service" component={ServiceScreen} />
-        <Stack.Screen name="cover" component={CoverScreen} />
-        <Stack.Screen name="accounts" component={AccountScreen} /> */}
-        <Stack.Screen name="home" component={HomeScreen} />
-        {/* <Stack.Screen name="contact" component={ContactScreen} /> */}
+      <Stack.Navigator>
+        <Stack.Screen name="login" component={LoginScreen} options={{ headerShown: false , gestureEnabled: false,}}/>
+        <Stack.Screen name="otp" component={OtpScreen} options={{ headerShown: false, gestureEnabled: false, }}/>
+        <Stack.Screen name="home" component={BottomNavigation} options={{ headerShown: false }}/>      
         <Stack.Screen
           name="onboardxprrt"
           component={OnboardScreen}
-          options={{ title: 'OnboardXprrt Screen' }}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     )}
@@ -232,7 +166,40 @@ const MyStack = () => {
   }
 };
 
+
+
 export default MyStack;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   {/* </NavigationContainer> */}
 
@@ -343,6 +310,72 @@ export default MyStack;
 
 
 
+
+
+ //   <NavigationContainer >
+    //     {
+    //       isAuthenticated  ? (
+    //         <>
+    //           <Tab.Navigator>
+    //   <Tab.Screen name="home" component={HomeScreen} />
+    //   <Tab.Screen name="contact" component={ContactScreen} />
+    // </Tab.Navigator>
+    //         <Stack.Navigator initialRouteName='home'>
+    //       <Stack.Screen
+    //         name="xprrt"
+    //         component={WelcomeScreen}
+    //         options={{title: ' Expert Welcome'}}
+    //       />
+    //       <Stack.Screen name="onboard" component={OnboardingScreen} options={{title: 'Onboard screen'}}/>
+    //       <Stack.Screen name="login" component={LoginScreen} options={{title: 'Login  screen'}}/>
+    //       <Stack.Screen name="otp" component={OtpScreen} options={{title: 'OTP  screen'}}/>
+    //       <Stack.Screen name="personal" component={PersonalScreen} options={{title: 'Personal screen'}}/>
+    //       <Stack.Screen name="service" component={ServiceScreen} options={{title: 'Service screen'}}/>
+    //       <Stack.Screen name="cover" component={CoverScreen} options={{title: 'Cover screen'}}/>
+    //       <Stack.Screen name="accounts" component={AccountScreen} options={{title: 'Account screen'}}/>
+    //       <Stack.Screen name="onboardxprrt" component={OnboardScreen} options={{title: 'OnboardXprrt screen'}}/>
+    //       <Stack.Screen name="home" component={HomeScreen} options={{title: 'Home screen'}}/>
+    //       <Stack.Screen name="filterpage" component={FilterPageScreen} options={{title: 'Filter Categories Screen'}}/>
+    //       <Stack.Screen name="contact" component={ContactScreen} options={{title: 'Contact Screen'}}/>
+    //       <Stack.Screen name="details" component={ListingUserDetail} options={{title: 'Listing detail Screen'}}/>
+    //       <Stack.Screen name="booking" component={BookingScreen} options={{title: 'Booking Screen'}}/>
+    //       <Stack.Screen name="onboardchild" component={OnboardChildScreen} options={{title: ' Onboard Child Screen'}}/>
+    //       <Stack.Screen name="onboardgrandchild" component={OnboardGrandChildScreen} options={{title: ' Onboard grand Child Screen'}}/>
+    //     </Stack.Navigator></>
+    //       ):(
+    //       <>
+    //         <Tab.Navigator>
+    //   <Tab.Screen name="home" component={HomeScreen} />
+    //   <Tab.Screen name="contact" component={ContactScreen} />
+    // </Tab.Navigator>
+    //       <Stack.Navigator initialRouteName='home'
+    //       >
+    //       <Stack.Screen
+    //         name="xprrt"
+    //         component={WelcomeScreen}
+    //         options={{title: ' Expert Welcome'}}
+    //       />
+    //       <Stack.Screen name="onboard" component={OnboardingScreen} options={{title: 'Onboard screen'}}/>
+    //       <Stack.Screen name="login" component={LoginScreen} options={{title: 'Login  screen'}}/>
+    //       <Stack.Screen name="otp" component={OtpScreen} options={{title: 'OTP  screen'}}/>
+    //       <Stack.Screen name="personal" component={PersonalScreen} options={{title: 'Personal screen'}}/>
+    //       <Stack.Screen name="service" component={ServiceScreen} options={{title: 'Service screen'}}/>
+    //       <Stack.Screen name="cover" component={CoverScreen} options={{title: 'Cover screen'}}/>
+    //       <Stack.Screen name="accounts" component={AccountScreen} options={{title: 'Account screen'}}/>
+    //       <Stack.Screen name="onboardxprrt" component={OnboardScreen} options={{title: 'OnboardXprrt screen'}}/>
+    //       <Stack.Screen name="home" component={HomeScreen} options={{title: 'Home screen'}}/>
+    //       <Stack.Screen name="filterpage" component={FilterPageScreen} options={{title: 'Filter Categories Screen'}}/>
+    //       <Stack.Screen name="contact" component={ContactScreen} options={{title: 'Contact Screen'}}/>
+    //       <Stack.Screen name="details" component={ListingUserDetail} options={{title: 'Listing detail Screen'}}/>
+    //       <Stack.Screen name="booking" component={BookingScreen} options={{title: 'Booking Screen'}}/>
+    //       <Stack.Screen name="onboardchild" component={OnboardChildScreen} options={{title: ' Onboard Child Screen'}}/>
+    //       <Stack.Screen name="onboardgrandchild" component={OnboardGrandChildScreen} options={{title: ' Onboard grand Child Screen'}}/>
+    //     </Stack.Navigator></>
+    //       )
+    //     }
+    //   </NavigationContainer>
+
+    // <NavigationContainer>
 
 
 

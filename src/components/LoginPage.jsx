@@ -27,7 +27,7 @@ const LoginPage = () => {
     if(response){
       await StoreAsyncData("number",number)
       setTimeout(() => {
-        navigatation.navigate("otp")
+        navigatation.navigate("otp",{startTimer:true})
       }, 1000);
       console.log("otp send successfully")
     } else{

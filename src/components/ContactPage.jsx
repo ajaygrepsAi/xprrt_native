@@ -27,6 +27,12 @@ const ContactPage = () => {
       if (response) {
         // Alert.alert(response.message);
         console.log('data save successfully', response?.data);
+        setValues({
+          name: '',
+      email: '',
+      mobile: 0,
+      message: '',
+        })
       } else {
         // Alert.alert(response.message);
         console.log('data not not save successfully');

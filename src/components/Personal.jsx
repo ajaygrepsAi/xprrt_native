@@ -31,15 +31,17 @@ const Personal = () => {
         url: API.PROFILE_PERSONAL,
         method: 'PUT',
         params: {
-          ...values,
-        },
+          ...values
+        }
       });
+      console.log(response,"response")
 
       if (response) {
-        Alert.alert(response.message);
+        
+        // Alert.alert(response.message);
         console.log('data save successfully', response?.data);
       } else {
-        Alert.alert(response.message);
+        // Alert.alert(response.message);
         console.log('data not not save successfully');
       }
     },
@@ -97,7 +99,8 @@ const Personal = () => {
             className="border-2 rounded-xl p-2 text-xl mt-3 bg-white border-gray-50"
             style={{width: '90%'}}
             onChangeText={handleChange('name')}
-            value={values.name}></TextInput>
+            value={values.name}>
+            </TextInput>
         </View>
         <View className="mt-2">
           <Text className="font-extrabold text-slate-950">Email</Text>
@@ -209,7 +212,7 @@ const Personal = () => {
           style={{width: '95%'}}
           onPress={handleSubmit}>
           <Text className="text-2xl p-3 text-center text-white">
-            Save Details
+           {userData?.name ?  "Edit Details" :" Save Details"}
           </Text>
         </TouchableOpacity>
       </View>
@@ -219,3 +222,4 @@ const Personal = () => {
 };
 
 export default Personal;
+

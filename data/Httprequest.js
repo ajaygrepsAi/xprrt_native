@@ -1,7 +1,7 @@
 import { Alert } from "react-native";
 import { API } from "../constants/constant";
 import { GetAsyncData } from "../utils/common";
-
+import ToastManager, { Toast } from 'toastify-react-native'
 export const HttpRequest = async(data)=>{
     try {
     const {params,url,method} = data
@@ -30,15 +30,18 @@ export const HttpRequest = async(data)=>{
 
     const responseObj = await response.json()
     if(!response.ok){
-        Alert.alert(responseObj.message);
+        // Alert.alert(responseObj.message);
+        Toast.success(responseObj.message)
         
       } else if (response.ok && method != "GET") {
-        Alert.alert(responseObj.message);
+        // Alert.alert(responseObj.message);
+        Toast.error(responseObj.message)
         
       }
       return responseObj;
         
     } catch (error) {
+        // Toast.error(error.message)
         console.log(error.message)
     }
 }

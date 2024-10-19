@@ -31,6 +31,7 @@ import MyStack from './src/navigations/Navigation';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AuthProvider } from './src/components/AuthContext';
 import BottomNavigation from './src/navigations/BottomNavigation';
+import ToastManager, { Toast } from 'toastify-react-native'
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -43,8 +44,9 @@ function App() {
    <AuthProvider>
      <GestureHandlerRootView>
     <NavigationContainer>
-    {/* <MyStack/> */}
-    <BottomNavigation/>
+    <MyStack/>
+    <ToastManager/>
+    {/* <BottomNavigation/> */}
     </NavigationContainer>
     
     </GestureHandlerRootView>

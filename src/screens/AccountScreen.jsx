@@ -1,9 +1,12 @@
 import React from 'react'
 import AccountPage from '../components/AccountPage'
+import { ScrollView } from 'react-native'
 
 const AccountScreen = () => {
   return (
-    <AccountPage/>
+   <ScrollView>
+     <AccountPage/>
+   </ScrollView>
   )
 }
 

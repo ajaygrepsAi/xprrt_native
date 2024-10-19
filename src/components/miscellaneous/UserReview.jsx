@@ -3,7 +3,7 @@ import { Text, View } from 'react-native'
 import Review from './Review';
 
 const UserReview = ({item}) => {
-    const value = item?.professional?.service[0].min_price
+    const value = item?.professional?.service[0]?.min_price
     const count = item?.professional?.total_ratings
     const average = item?.professional?.avg_ratings
     // console.log(item?.professional?.service[0].min_price, 'item-------details------userReview-----');
