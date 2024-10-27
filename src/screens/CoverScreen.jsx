@@ -5,9 +5,9 @@ import { Dimensions, View } from 'react-native'
 const CoverScreen = () => {
   const {height} = Dimensions.get("window")
   return (
-    <View className="bg-purple-100" >
+    // <View className="bg-purple-100">
       <CoverImage/>
-    </View>
+    // </View>
   )
 }
 

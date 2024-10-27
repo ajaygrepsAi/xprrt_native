@@ -17,7 +17,7 @@ const OnboardChildCategory = () => {
 
   return (
     <View>
-        <View style={{ width:width }} className="p-2 bg-purple-100">
+        <View style={{ width:width,height:height}} className="p-2 bg-white">
        {item?.child?.length ? (
         <FlatList
           data={item.child}

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity, Pressable} from 'react-native';
+import {View, Text, TouchableOpacity, Pressable, Dimensions,Alert} from 'react-native';
 import {OtpInput} from 'react-native-otp-entry';
 import {useSafeAreaFrame} from 'react-native-safe-area-context';
 import {HttpRequest} from '../../data/Httprequest';
@@ -20,8 +20,26 @@ const OTPpage = () => {
   console.log(otpValue, 'otpValue-------');
   const {login} = useAuth();
   const router = useRoute()
-
+  const {height} = Dimensions.get("window")
   const navigation = useNavigation();
+
+  const fetchCategoriesData = async () => {
+    try {
+      const response = await HttpRequest({
+        url: API.CATEGORY,
+        method: 'GET',
+      });
+
+      if (response && response?.data) {
+        // console.log('response----data----in categories----', response?.data);
+        await StoreAsyncData('categories', response?.data);
+        // setCategories(response?.data);
+        
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const fetchUserData = async () => {
     const response = await HttpRequest({
@@ -29,23 +47,26 @@ const OTPpage = () => {
       method: 'GET',
     });
 
-    if (response) {
+    if (response && response?.data) {
       console.log(
         'response value of api---profile--message--',
         response.message,
       );
+      fetchCategoriesData()
       await StoreAsyncData('user', response?.data);
-      if (response?.data.categories && response?.data.categories.length > 0) {
-        navigation.navigate('home');
-        console.log(' have any value data ');
-      } else {
-        navigation.navigate('onboardxprrt');
-        console.log('not have any value ');
-      }
-      console.log(
-        'response value of api---profile- response?.data---',
-        response?.data,
-      );
+      setTimeout(()=>{
+        if (response?.data.categories && response?.data.categories.length > 0) {
+          navigation.replace('home');
+          console.log(' have any value data ');
+        } else {
+          navigation.replace('onboardxprrt');
+          console.log('not have any value ');
+        }
+        console.log(
+          'response value of api---profile- response?.data---',
+          response?.data,
+        );
+      },1000)
     } else {
       console.log('not have any user profile dat value ');
     }
@@ -119,39 +140,63 @@ const OTPpage = () => {
     }
   }, []);
 
+ 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('beforeRemove', (e) => {
+      
+      if (e.data.action.type === 'GO_BACK' || e.data.action.type === 'POP') {
+        e.preventDefault();
+        // Alert.alert(
+        //   'Are you sure you want to leave this page?',
+        //   'You will lose any unsaved changes.',
+        //   [
+        //     { text: 'Cancel', style: 'cancel', onPress: () => {} },
+        //     { 
+        //       text: 'Leave', 
+        //       style: 'destructive', 
+        //       onPress: () => navigation.dispatch(e.data.action) 
+        //     },
+        //   ]
+        // );
+      }
+    });
+  
+    return unsubscribe; 
+  }, [navigation]);
+
+  
+
   return (
-    <View>
-      <Text className=" p-5 font-extrabold mt-5 text-3xl">
+    <View className="flex font-semibold bg-white" style={{height:height}}>
+      <Text  className=" p-5 font-extrabold text-left text-neutral-950 mt-10 "
+        style={{fontSize: 30}}>
         OTP Verification
       </Text>
-      <Text className="mt-5 font-semibold text-neutral-500 text-lg p-2">
-        Please enter the 4-digit code sent to your number for verifcation
+      <View
+        style={{width: 60, top: -6, left: 25, borderColor: '#6C63FF'}}
+        className="border-2"></View>
+      <Text className=" font-semibold  p-5" style={{fontSize:15}}>
+        Please enter the 4-digit code sent to your number <Text className="text-slate-800">+91{getNumber}</Text>  for verifcation
       </Text>
 
-      <View
-        className="flex justify-center items-center"
-        style={{width: 300, height: 250, marginLeft: 40}}>
-        <OtpInput numberOfDigits={4} onTextChange={text => setOtpValue(text)} />
-      </View>
-
-      <View className="flex-row justify-center p-3">
+      <View className="flex-row justify-center">
        <View>
      {
       countStart ? 
       <CountdownCircleTimer
       key={timerKey} 
-      className="ms-"
+      className="ms-1"
       isPlaying
       duration={120}
       colors={['#004777', '#F7B801', '#A30000', '#A30000']}
       colorsTime={[7, 5, 2, 0]}
-      size={150}>
+      size={100}>
       {({remainingTime}) => <>
 
       <View>
-        <Text className="text-red-600">Remaining</Text>
-        <Text className="text-lg font-semibold text-green-900 ms-3" style={{marginLeft:18}}>{remainingTime}</Text>
-        <Text className="text-red-600" style={{marginLeft:6}}>Seconds</Text>
+        <Text className="text-red-600 " style={{fontSize:10,marginLeft:1}} >Remaining</Text>
+        <Text className="text-lg font-semibold text-green-900 ms-3" style={{marginLeft:16}}>{remainingTime}</Text>
+        <Text className="text-red-600" style={{marginLeft:6,fontSize:10}}>Seconds</Text>
       </View>
      
       </>} 
@@ -160,18 +205,24 @@ const OTPpage = () => {
        </View>
       </View>
 
+      <View
+        className="flex justify-center items-center"
+        style={{width: 300, height: 250, marginLeft: 40,top:-50}}>
+        <OtpInput numberOfDigits={4} onTextChange={text => setOtpValue(text)} />
+      </View>
+
       <TouchableOpacity
-        style={{width: '85%', marginLeft: 25}}
-        className="bg-blue-700 border-2 rounded-2xl"
+        className="rounded-lg "
+        style={{width: '85%', marginLeft: 35,height:54,backgroundColor:"#6C63FF",top:-110}}
         onPress={handleVerify}>
-        <Text className="p-2 text-2xl font-bold text-center text-white">
+        <Text className="p-3  font-bold text-center text-white" style={{fontSize:18}}>
           Verify
         </Text>
       </TouchableOpacity>
       <View className="flex-row justify-around">
-        <View></View>
-        <TouchableOpacity onPress={reSendOtp} className="p-2">
-          <Text className="font-semibold text-lg "> ? Resend otp</Text>
+
+        <TouchableOpacity onPress={reSendOtp} className="p-3" style={{top:-100,left:-10}}>
+          <Text className="font-semibold " > Didnt receive any code? Resend otp</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -199,3 +250,16 @@ export default OTPpage;
           </View>
           </>
           } */}
+
+
+
+
+           // useEffect(() => {
+  //   const unsubscribe = navigation.addListener('beforeRemove', (e) => {
+  //     if (e.data.action.type === 'POP' && e.data.stateKey === 'OtpScreen') {
+  //       e.preventDefault(); // Prevent going back
+  //     }
+  //   });
+
+  //   return unsubscribe; // Correctly returning the unsubscribe function
+  // }, [navigation]);

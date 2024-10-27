@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
 import { View,Text } from 'react-native'
 import StarRating from 'react-native-star-rating-widget';
-const Review = ({count,average}) => {
+const Review = ({count,average,size}) => {
     // console.log(count,"count dta ")
     const [rating, setRating] = useState(0);
   return (
-    <View className="flex-row">
+    <View className="flex-row" >
         <StarRating
         rating={count}
         onChange={setRating}
-        starSize={25}
+        starSize={size}
+        
       />
      {
       average ? (
-        <Text className="text-lg">({average})</Text>
+        <Text className="">({average})</Text>
       ):""
      }
     </View>

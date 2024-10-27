@@ -47,9 +47,9 @@ const FilterComponent = ({
 
   const handleCheckboxToggle = (itemId) => {
     if (selectedId.includes(itemId)) {
-      setSelectedId(prevIds => prevIds.filter(id => id !== itemId)); // Deselect if already selected
+      setSelectedId(prevIds => prevIds.filter(id => id !== itemId));
     } else {
-      setSelectedId(prevIds => [...prevIds, itemId]); // Select if not already selected
+      setSelectedId(prevIds => [...prevIds, itemId]);
     }
   };
 
@@ -73,8 +73,8 @@ const FilterComponent = ({
   return (
     <View className="p-2">
       <View
-        className="relative rounded-xl bg-slate-50"
-        style={{width: '100%', height: 60}}>
+        className="relative rounded-lg border-2 "
+        style={{width: 305, height: 60,backgroundColor:"#D9D9D95C",borderColor:"#D9D9D95C"}}>
         {
           isSelected ? <Text style={{position: 'absolute', left: 330, top: 13, zIndex: 1}} className="text-lg font-semibold text-red-900" onPress={()=>setSelection(!isSelected)}>
           X
@@ -86,7 +86,8 @@ const FilterComponent = ({
           selectedValue={categoryValue}
           onValueChange={handleBox}
           // onFocus={handleBox}
-          style={{height: 50, width: '100%', zIndex: 0, paddingLeft: 30}}>
+          // style={{height: 50, width: '100%', zIndex: 0}}
+          >
           {categoryData.map((item, index) => (
             <Picker.Item label={item.name} value={item.name} key={item.id} />
           ))}
@@ -115,7 +116,7 @@ const FilterComponent = ({
         <Text></Text>
       )}
 
-      <View className="flex-row justify-between mt-3">
+      {/* <View className="flex-row justify-between mt-3">
         <View
           style={{width: '35%', height: '100%'}}
           className=" rounded-xl bg-gray-50">
@@ -136,9 +137,9 @@ const FilterComponent = ({
             <Picker.Item label="Other" value=" " />
           </Picker>
         </View>
-      </View>
+      </View> */}
 
-      <View
+      {/* <View
         className=" rounded-xl bg-slate-50 mt-3"
         style={{width: '100%', height: 60}}>
         <Picker
@@ -150,8 +151,8 @@ const FilterComponent = ({
           <Picker.Item label="English" value="english" />
           <Picker.Item label="Other" value=" " />
         </Picker>
-      </View>
-      <View style={{height: 30}} className="mt-5">
+      </View> */}
+      {/* <View style={{height: 30}} className="mt-5">
         <Text className="text-lg text-slate-950">Exp</Text>
         <Slider
           style={{height: 30, width: '80%', marginTop: 15}}
@@ -160,7 +161,7 @@ const FilterComponent = ({
           maximumValue={max}
           onValueChange={value => setMaxValue(value)}
         />
-      </View>
+      </View> */}
     </View>
   );
 };

@@ -14,6 +14,7 @@ import StarRating from 'react-native-star-rating-widget';
 import { HttpRequest } from '../../../data/Httprequest';
 import { API } from '../../../constants/constant';
 import ShowReviewData from './ShowReviewData';
+import { GetAsyncData } from '../../../utils/common';
 
 const ReviewListing = ({data, id}) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -21,6 +22,7 @@ const ReviewListing = ({data, id}) => {
   const [starRatingValue, setStarRatingValue] = useState();
   const [getReview,setGetReview] = useState([])
   const [getSingleReview,setGetSingleReview] = useState([])
+  const [checkRegistrationId,setCheckRegistrationId] = useState("")
 
   console.log(reviewComment, 'data in reviewlisting---');
 
@@ -28,6 +30,12 @@ const ReviewListing = ({data, id}) => {
   console.log(starValue, 'starRatingValue---');
 
   const getReviewData = async()=>{
+    const userLocalData = await GetAsyncData('user')
+      
+    if(userLocalData){
+     setCheckRegistrationId(userLocalData?.registration_id)
+    }
+
     const response = await HttpRequest({
         url:API.REVIEWS ,
         method:"GET",
@@ -94,14 +102,22 @@ const ReviewListing = ({data, id}) => {
     <View>
       <View className="flex-row justify-between mt-4">
         <View>
-          <Text className=" flex-1 text-2xl font-extrabold ">Review</Text>
+          <Text className=" flex-1  font-semibold mt-1 " style={{fontSize:20,color: "#363C45"}}>Review</Text>
         </View>
 
-        <Pressable
+        {
+          id == checkRegistrationId ? 
+          <Pressable
           style={[styles.button, styles.buttonOpen]}
-          onPress={() => setModalVisible(true)}>
+          onPress={(e)=>e.preventDefault()}>
           <Text style={styles.textStyle}>write a review</Text>
-        </Pressable>
+        </Pressable>:
+        <Pressable
+        style={[styles.button, styles.buttonOpen]}
+        onPress={() => setModalVisible(true)}>
+        <Text style={styles.textStyle}>write a review</Text>
+      </Pressable>
+        }
       </View>
       <View>
         <View style={styles.centeredView}>

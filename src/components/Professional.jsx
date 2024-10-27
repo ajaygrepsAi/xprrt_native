@@ -18,7 +18,16 @@ import dayjs from 'dayjs';
 import {GetAsyncData} from '../../utils/common';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import CheckBox from '@react-native-community/checkbox';
-
+import {
+  faSolid,
+  faBell,
+  faBars,
+  faPenToSquare,
+  faThin,
+  faCaretDown,
+  faHashtag
+} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 const Professional = () => {
   const [userData, setUserData] = useState([]);
@@ -101,8 +110,8 @@ const [isDatePickerVisible, setDatePickerVisible] = useState(false);
     hideDatePicker();
   };
 
-  console.log(startTime,"starttime in handleconfirm value -----")
-  console.log(endTime,"endtime in handleconfirm value -----")
+  // console.log(startTime,"starttime in handleconfirm value -----")
+  // console.log(endTime,"endtime in handleconfirm value -----")
 //////////////////////////////////////////////////////////
   // const showDatePicker = () => {
   //   setDatePickerVisibility(true);
@@ -128,17 +137,19 @@ const [isDatePickerVisible, setDatePickerVisible] = useState(false);
     'saturday',
   ];
 
-  const handleCheckboxToggle = (itemId) => {
-    console.log(itemId,"checkbox itemid")
-    // setSelectedName(itemId)
-    if (selectedName.includes(itemId)) {
-      setSelectedName(prevIds => prevIds.filter(id => id !== itemId)); 
-    } else {
-      setSelectedName(prevIds => [...prevIds, itemId]); 
-    }
-  };
+  // const handleCheckboxToggle = (itemId) => {
+  //   console.log(itemId,"checkbox itemid")
+  //   // setSelectedName(itemId)
+  //   if (selectedName.includes(itemId)) {
+  //     setSelectedName(prevIds => prevIds.filter(id => id !== itemId)); 
+  //   } else {
+  //     setSelectedName(prevIds => [...prevIds, itemId]); 
+  //   }
+  // };
 
   // console.log(selectedName,"selectedname----  ")
+
+  
 
   const {handleChange, handleSubmit, values, setValues} = useFormik({
     initialValues: {
@@ -186,6 +197,15 @@ const [isDatePickerVisible, setDatePickerVisible] = useState(false);
           company_name: '',
         },
       ],
+      availability: {
+        monday: { isOpen: false, timings: [] },
+        tuesday: { isOpen: false, timings: [] },
+        wednesday: { isOpen: false, timings: [] },
+        thursday: { isOpen: false, timings: [] },
+        friday: { isOpen: false, timings: [] },
+        saturday: { isOpen: false, timings: [] },
+        sunday: { isOpen: false, timings: [] },
+      },
       main_category: '',
       total_experience: '',
     },
@@ -198,7 +218,7 @@ const [isDatePickerVisible, setDatePickerVisible] = useState(false);
       });
 
       if (response.data) {
-        console.log('data save successfully in professional-details-----');
+        console.log('data save successfully in professional-details-----',response?.data?.availability);
       } else {
         console.log('data not save in profile--professional-details--------');
       }
@@ -217,9 +237,7 @@ const [isDatePickerVisible, setDatePickerVisible] = useState(false);
           const professionalData = response?.data?.professional;
           setUserData(professionalData); // Set the user data
           if (professionalData) {
-            console.log('data aarha hai bhai ');
 
-            // Set values directly using professionalData
             setValues({
               job_title: professionalData?.job_title || '',
               website: professionalData?.website || '',
@@ -270,6 +288,37 @@ const [isDatePickerVisible, setDatePickerVisible] = useState(false);
                     professionalData?.experience?.[0]?.company_name || '',
                 },
               ],
+              // availability: initialAvailability,
+              availability: {
+                monday: {
+                  isOpen: professionalData?.availability?.monday?.isOpen || false,
+                  timings: professionalData?.availability?.monday?.timings || [],
+                },
+                tuesday: {
+                  isOpen: professionalData?.availability?.tuesday?.isOpen || false,
+                  timings: professionalData?.availability?.tuesday?.timings || [],
+                },
+                wednesday: {
+                  isOpen: professionalData?.availability?.wednesday?.isOpen || false,
+                  timings: professionalData?.availability?.wednesday?.timings || [],
+                },
+                thursday: {
+                  isOpen: professionalData?.availability?.thursday?.isOpen || false,
+                  timings: professionalData?.availability?.thursday?.timings || [],
+                },
+                friday: {
+                  isOpen: professionalData?.availability?.friday?.isOpen || false,
+                  timings: professionalData?.availability?.friday?.timings || [],
+                },
+                saturday: {
+                  isOpen: professionalData?.availability?.saturday?.isOpen || false,
+                  timings: professionalData?.availability?.saturday?.timings || [],
+                },
+                sunday: {
+                  isOpen: professionalData?.availability?.sunday?.isOpen || false,
+                  timings: professionalData?.availability?.sunday?.timings || [],
+                },
+              },
               main_category: professionalData?.main_category || '',
               total_experience: professionalData?.total_experience || '',
             });
@@ -287,11 +336,72 @@ const [isDatePickerVisible, setDatePickerVisible] = useState(false);
     fetchGetProfileData();
   }, []);
 
+
+
+  const handleCheckboxToggle = (day) => {
+    const isOpen = !selectedDays[day]; 
+    setSelectedDays((prevSelectedDays) => ({
+      ...prevSelectedDays,
+      [day]: isOpen,
+    }));
+    
+    // Update Formik's availability state
+    setValues(prevValues => ({
+      ...prevValues,
+      availability: {
+        ...prevValues.availability,
+        [day]: { isOpen, timings: isOpen ? [startTime[day], endTime[day]].filter(Boolean) : [] }, 
+      },
+    }));
+  };
+
+
+  const handleConfirmnew = (date) => {
+    const formattedTime = dayjs(date).format('HH:mm');
+    if (timePickerMode === 'start') {
+      setStartTime((prev) => ({
+        ...prev,
+        [currentDay]: formattedTime,
+      }));
+      
+      setValues(prevValues => ({
+        ...prevValues,
+        availability: {
+          ...prevValues.availability,
+          [currentDay]: {
+            ...prevValues.availability[currentDay],
+            timings: [formattedTime, endTime[currentDay]].filter(Boolean),
+          },
+        },
+      }));
+    } else if (timePickerMode === 'end') {
+      setEndTime((prev) => ({
+        ...prev,
+        [currentDay]: formattedTime,
+      }));
+      // Update Formik state as well
+      setValues(prevValues => ({
+        ...prevValues,
+        availability: {
+          ...prevValues.availability,
+          [currentDay]: {
+            ...prevValues.availability[currentDay],
+            timings: [startTime[currentDay], formattedTime].filter(Boolean), // Include updated end time
+          },
+        },
+      }));
+    }
+    hideDatePicker();
+  };
+
+
+  console.log(userData.availability,"availbility professional.data ----how ")
+
   return (
     <ScrollView
       contentContainerStyle={{flexGrow: 1}}
       showsVerticalScrollIndicator={false}>
-      <View className="p-2 bg-purple-100">
+      <View className="p-2 bg-white">
         <View>
           <Text className="text-center font-extrabold text-2xl text-slate-950">
             Professional -details
@@ -304,30 +414,30 @@ const [isDatePickerVisible, setDatePickerVisible] = useState(false);
         </View>
         <View className="mt-4 p-2 rounded-xl">
           <View className="">
-            <Text className=" font-semibold text-lg ">Job Title</Text>
+            <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Profile</Text>
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-1 bg-white border-gray-50"
-              style={{width: '100%'}}
+              className="border rounded-xl  mt-3 p-2"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="Enter your job title"
               onChangeText={handleChange('job_title')}
               value={values.job_title}
             />
           </View>
-          <View className="">
-            <Text className=" font-semibold text-lg m-1 ">Website</Text>
+          <View className="mt-2">
+            <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Website</Text>
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-1 bg-white border-gray-50"
-              style={{width: '100%'}}
+              className="border rounded-xl  mt-3 p-2"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="Enter your personal website link"
               onChangeText={handleChange('website')}
               value={values.website}
             />
           </View>
-          <View className="">
-            <Text className=" font-semibold text-lg mt-1 ">Bio</Text>
+          <View className="mt-2">
+            <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Bio</Text>
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-1 bg-white border-gray-50"
-              style={{width: '100%'}}
+              className="border rounded-xl  mt-3 p-2"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="Describe yourself "
               onChangeText={handleChange('bio')}
               value={values.bio}
@@ -336,59 +446,23 @@ const [isDatePickerVisible, setDatePickerVisible] = useState(false);
 
           {/* availability section---------comes here */}
 
-          {/* <View>
-            <View>
-              {weekDays.map((item, index) => (
-                <View>
-                  <View style={styles.container}>
-                <View style={styles.checkboxContainer}>
-                  <CheckBox
-                    value={selectedName.includes(item)}
-                    onValueChange={() => handleCheckboxToggle(item)}
-                    style={styles.checkbox}
-                    key={index}
-                  />
-                  <Text style={styles.label}>{item}</Text>
-                </View>
-              </View>
-                  <View>
-                    <Button title="Show Date Picker" onPress={showDatePicker} />
-                    <DateTimePickerModal
-                    title={`Pick Time for ${item}`}
-                      key={index}
-                      isVisible={isDatePickerVisible}
-                      mode="time"
-                      onConfirm={handleConfirm}
-                      onCancel={hideDatePicker}
-                      is24Hour={true}
-                    />
-                  </View>
-                </View>
-              ))}
-            </View>
-          </View> */}
+          <View className="rounded-lg bg-gray-100 mt-4">
 
-<View style={styles.container}>
-      <Text style={styles.title}>Availability</Text>
+          <View style={styles.container}>
+      <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Availability</Text>
 
       {Object.entries(selectedDays).map(([day, isOpen]) => (
         <View key={day} style={styles.availabilityRow}>
           <Text style={styles.dayLabel}>
-            {day.charAt(0).toUpperCase() + day.slice(1)}
+            {day.charAt(0).toUpperCase() + day.slice(1,3)}
           </Text>
 
           <CheckBox
             value={isOpen}
-            onValueChange={(isChecked) => {
-              setSelectedDays((prevSelectedDays) => ({
-                ...prevSelectedDays,
-                [day]: isChecked,
-              }));
-            }}
+            onValueChange={() => handleCheckboxToggle(day)}
           />
-          <Text>{selectedDays[day] ? 'Available' : 'Unavailable'}</Text>
+          <Text>{isOpen ? 'Available' : 'Unavailable'}</Text>
 
-          {/* Time inputs, disabled if not open */}
           <View style={[styles.timeInputs, !isOpen && styles.disabled]}>
             <View style={styles.timeInputContainer}>
               <Text style={styles.timeLabel}>Start time:</Text>
@@ -420,31 +494,37 @@ const [isDatePickerVisible, setDatePickerVisible] = useState(false);
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="time"
-        onConfirm={handleConfirm}
+        onConfirm={handleConfirmnew}
         onCancel={hideDatePicker}
         is24Hour={true}
       />
+      
     </View>
+          </View>
+
+
+
 
           {/* end of that availability */}
 
-          <View className="">
-            <Text className=" font-semibold text-lg mt-1 ">Occupation</Text>
+          <View className="mt-2">
+            <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Occupation</Text>
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-1 bg-white border-gray-50"
-              style={{width: '100%'}}
+              className="border rounded-xl  mt-3 p-2 "
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="Select your Category"
               onChangeText={handleChange('main_category')}
               value={values.main_category}
             />
           </View>
-          <View className=""> 
-            <Text className=" font-semibold text-lg mt-1 ">
+          <View className="mt-2"> 
+            <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>
               Total Experience
             </Text>
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-1 bg-white border-gray-50 "
-              style={{width: '100%'}}
+             keyboardType="numeric"
+             className="border rounded-xl  mt-3 p-2"
+             style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="Total_experience"
               onChangeText={handleChange('total_experience')}
               value={values.total_experience}
@@ -452,24 +532,26 @@ const [isDatePickerVisible, setDatePickerVisible] = useState(false);
           </View>
         </View>
 
-        <View className="mt-4 p-2 rounded-xl bg-purple-100">
-          <Text className="text-lg font-extrabold">Skill</Text>
+        <View className="mt-3 p-2 rounded-xl bg-gray-100">
+          <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Skill</Text>
           <View className="">
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-1 bg-white border-gray-50"
-              style={{width: '100%'}}
+              className="border rounded-xl  mt-3 bg-white p-2"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="Skills"
               onChangeText={handleChange('skill[0].name')}
               value={values?.skill[0].name}
             />
             <View
-              className="border-2 rounded-xl mt-3 bg-white border-gray-50"
-              style={{width: '100%'}}>
+              className="border rounded-xl  mt-3  bg-white"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}>
               <Picker
                 selectedValue={values.skill[0].level}
                 onValueChange={handleChange('skill[0].level')}
                 value={values?.skill[0].level}
-                style={{height: 50, width: '100%'}}>
+                style={{height: 50, width: '100%'}}
+                
+                >
                 <Picker.Item label="Select Level" value="" />
                 <Picker.Item label="Biginner" value="biginner" />
                 <Picker.Item label="Intermediate" value="intermediate" />
@@ -478,24 +560,26 @@ const [isDatePickerVisible, setDatePickerVisible] = useState(false);
             </View>
           </View>
         </View>
-        <View className="mt-4 p-2 rounded-xl bg-purple-100">
-          <Text className="text-lg font-extrabold">Language</Text>
+        <View className="mt-4 p-2 rounded-xl bg-gray-100">
+          <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Language</Text>
           <View className="">
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-1 bg-white border-gray-50"
-              style={{width: '100%'}}
+             className="border rounded-xl  mt-3  bg-white p-2"
+             style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="Language"
               onChangeText={handleChange('language[0].name')}
               value={values?.language[0].name}
             />
             <View
-              className="border-2 rounded-xl mt-3 bg-white border-gray-50 "
-              style={{width: '100%'}}>
+             className="border rounded-xl  mt-3  bg-white"
+             style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
+              
+              >
               <Picker
                 selectedValue={values.language[0].level}
                 onValueChange={handleChange('language[0].level')}
                 value={values?.language[0].level}
-                style={{height: 50, width: '100%'}}>
+                style={{height: 51, width: '100%'}}>
                 <Picker.Item label="Select Level" value="" />
                 <Picker.Item label="Biginner" value="biginner" />
                 <Picker.Item label="Intermediate" value="intermediate" />
@@ -505,93 +589,94 @@ const [isDatePickerVisible, setDatePickerVisible] = useState(false);
           </View>
         </View>
 
-        <View className="mt-4 p-2 rounded-xl bg-purple-100">
-          <Text className="text-lg font-extrabold">Education</Text>
+        <View className="mt-4 p-2 rounded-xl bg-gray-100">
+          <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Education</Text>
           <View className="">
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-2 bg-white border-gray-50"
-              style={{width: '100%'}}
+              className="border rounded-xl  mt-3  bg-white p-2"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="Degree Name"
               onChangeText={handleChange('education[0].degree')}
               value={values?.education[0].degree}
             />
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-2 bg-white border-gray-50"
-              style={{width: '100%'}}
+              className="border rounded-xl  mt-3  bg-white p-2"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="School/Univerity"
               onChangeText={handleChange('education[0].university')}
               value={values?.education[0].university}
             />
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-2 bg-white border-gray-50"
-              style={{width: '100%'}}
+              className="border rounded-xl  mt-3  bg-white p-2"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="Field of study/Subject"
               onChangeText={handleChange('education[0].subjects')}
               value={values?.education[0].subjects}
             />
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-2 bg-white border-gray-50"
-              style={{width: '100%'}}
+              className="border rounded-xl  mt-3  bg-white p-2"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="Passing Year"
               onChangeText={handleChange('education[0].passing_year')}
               value={values?.education[0].passing_year}
             />
           </View>
         </View>
-        <View className="mt-4 p-2 rounded-xl bg-purple-100">
-          <Text className="text-lg font-extrabold">Portfolio</Text>
+        <View className="mt-4 p-2 rounded-xl bg-gray-100">
+          <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Portfolio</Text>
           <View className="">
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-2 bg-white border-gray-50"
-              style={{width: '100%'}}
+              className="border rounded-xl  mt-3  bg-white p-2"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="Online link of portfolio"
               onChangeText={handleChange('portfolio[0].link')}
               value={values?.portfolio[0].link}
             />
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-2 bg-white border-gray-50"
-              style={{width: '100%'}}
+              className="border rounded-xl  mt-3  bg-white p-2"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="Title"
               onChangeText={handleChange('portfolio[0].portfolio_title')}
               value={values?.portfolio[0].portfolio_title}
             />
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-2 bg-white border-gray-50"
-              style={{width: '100%'}}
-              placeholder="Projet Details"
+              className="border rounded-xl  mt-3  bg-white p-2"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
+              placeholder="Project Details"
               onChangeText={handleChange('portfolio[0].details')}
               value={values?.portfolio[0].details}
             />
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-2 bg-white border-gray-50"
-              style={{width: '100%'}}
+              className="border rounded-xl  mt-3  bg-white p-2"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="Descriptions"
+              placeholderTextColor="#A9A9A9"
               onChangeText={handleChange('portfolio[0].description')}
-              value={values?.portfolio[0].description}
+              value={values?.portfolio[0]?.description}
             />
           </View>
         </View>
 
-        <View className="mt-4 p-2 rounded-xl bg-purple-100">
-          <Text className="text-lg font-extrabold">Experience</Text>
+        <View className="mt-4 p-2 rounded-xl bg-gray-100">
+          <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Experience</Text>
           <View className="">
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-2 bg-white border-gray-50"
-              style={{width: '100%'}}
+              className="border rounded-xl  mt-3  bg-white p-2"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="Tilte"
               onChangeText={handleChange('experience[0].job_title')}
               value={values?.experience[0].job_title}
             />
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-2 bg-white border-gray-50"
-              style={{width: '100%'}}
+              className="border rounded-xl  mt-3  bg-white p-2"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="Company Name"
               onChangeText={handleChange('experience[0].company_name')}
               value={values?.experience[0].company_name}
             />
             <View
-              className="border-2 rounded-xl mt-3 bg-white border-gray-50"
-              style={{width: '100%'}}>
+              className="border rounded-xl  mt-3  bg-white"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}>
               <Picker
                 selectedValue={values.experience[0].role}
                 onValueChange={handleChange('experience[0].role')}
@@ -606,8 +691,8 @@ const [isDatePickerVisible, setDatePickerVisible] = useState(false);
               </Picker>
             </View>
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-2 bg-white border-gray-50"
-              style={{width: '100%'}}
+              className="border rounded-xl  mt-3  bg-white p-2"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="Location"
               onChangeText={handleChange('experience[0].location')}
               value={values?.experience[0].location}
@@ -617,14 +702,17 @@ const [isDatePickerVisible, setDatePickerVisible] = useState(false);
               <TouchableOpacity
                 onPress={() => setOpen(true)}
                 style={{
-                  borderWidth: 2,
-                  borderRadius: 10,
+                  // borderWidth: 2,
+                  // borderRadius: 10,
                   padding: 10,
                   marginTop: 10,
                   width: '100%',
+                  borderColor:"#C8C8C8AD"
                 }}
-                className="bg-white border-gray-50">
-                <Text className="text-lg font-semibold  ">
+                className=" rounded-xl  mt-3  bg-white border"
+                // style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
+                >
+                <Text className="  text-slate-900 ">
                   {values?.experience[0].startdate
                     ? values?.experience[0].startdate
                     : 'Start Date'}
@@ -651,14 +739,18 @@ const [isDatePickerVisible, setDatePickerVisible] = useState(false);
               <TouchableOpacity
                 onPress={() => setendOpen(true)}
                 style={{
-                  borderWidth: 2,
-                  borderRadius: 10,
+                  // borderWidth: 2,
+                  // borderRadius: 10,
                   padding: 10,
                   marginTop: 10,
                   width: '100%',
+                  borderColor:"#C8C8C8AD"
                 }}
-                className="bg-white border-gray-50">
-                <Text className="text-lg font-semibold  ">
+                className="border rounded-xl  mt-3 bg-white"
+              // style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
+                // className="bg-white border-gray-50"
+                >
+                <Text className="text-slate-900">
                   {values?.experience[0].enddate
                     ? values?.experience[0].enddate
                     : 'End Date'}
@@ -683,21 +775,32 @@ const [isDatePickerVisible, setDatePickerVisible] = useState(false);
             </View>
             {/* <TextInput className=" border-2 rounded-xl text-lg mt-2 bg-white border-gray-50" style={{width:"100%"}}placeholder='End Date' onChangeText={handleChange('experience[0].enddate')} value={values?.experience[0].enddate}/> */}
             <TextInput
-              className=" border-2 rounded-xl text-lg mt-2 bg-white border-gray-50"
-              style={{width: '100%'}}
+             
+             className="border rounded-xl  mt-3 bg-white p-2"
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               placeholder="Description"
               onChangeText={handleChange('experience[0].description')}
               value={values?.experience[0].description}
             />
           </View>
         </View>
-        <TouchableOpacity className="mt-4 p-2 rounded-xl bg-blue-950">
+        <View className="mt-8 p-2">
+          <Text style={{fontSize:17,color:"#8F8F8F"}}>
+          Save all the details just by clicking on save button giving below
+          </Text>
+        </View>
+        <TouchableOpacity className=" rounded-2xl mt-3"
+          style={{width: 151,height:52,backgroundColor:"#6C63FF"}}>
           <Text
-            className="text-lg font-extrabold text-white text-center"
+            className="text-2xl p-3 text-center text-white" style={{fontSize:13}}
             onPress={handleSubmit}>
             {userData?.job_title ? 'Edit Details' : 'Save Details'}
           </Text>
+          <FontAwesomeIcon icon={faHashtag} size={15} style={{position:"absolute",top:21,left:19,color:"white"}}/>
         </TouchableOpacity>
+        <View style={{height:30}}>
+
+        </View>
       </View>
     </ScrollView>
   );

@@ -1,9 +1,13 @@
 import React from 'react'
 import ListingCategories from '../components/ListingCategories'
+import { View } from 'react-native'
 
 const FilterPageScreen = () => {
   return (
-    <ListingCategories/>
+    // <View>
+      <ListingCategories/>
+    //   {/* <View className=""></View>
+    // </View> */}
   )
 }
 

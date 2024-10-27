@@ -2,9 +2,19 @@ import React, { useEffect,useState } from 'react';
 import {Text, View, Image} from 'react-native';
 import Review from './Review';
 import { GetAsyncData } from '../../../utils/common';
-
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faCheck} from '@fortawesome/free-solid-svg-icons';
+import {faXmark} from '@fortawesome/free-solid-svg-icons';
+import {
+  faSolid,
+  faBell,
+  faBars,
+  faPenToSquare,
+  faThin,
+  faCaretDown,
+} from '@fortawesome/free-solid-svg-icons';
 const ShowReviewData = ({data, id, getdata}) => {
-  console.log(data, 'data valie in show review data    ');
+  // console.log(data, 'data valie in show review data    ');
   const [userData,setUserData] = useState([])
 
   useEffect(()=>{
@@ -35,28 +45,36 @@ const ShowReviewData = ({data, id, getdata}) => {
               />
               <View>
                 <Text
-                  className="text-xl font-semibold "
-                  style={{marginLeft: 10}}>
+                  className=""
+                  // style={{fontSize:14 ,left:20}}
+                  style={{marginLeft: 10,fontSize:14,color:"#000000"}}>
                   {item?.user?.name}
                 </Text>
                 <Text
-                  className="text-sm font-semibold "
-                  style={{marginLeft: 10}}>
+                  className=" "
+                  style={{marginLeft: 10,fontSize:14}}>
                   {item?.user?.city} , {item?.user?.state}
                 </Text>
               </View>
             </View>
-           <View>
-           <Review count={item.rating} average={0}/>
+           <View className="flex-row">
+
            {
             item?.user?.registration_id == userData.registration_id ?(
-                <Text className="" style={{marginLeft:10}}>put</Text>
+                // <Text className="" 
+                // // style={{marginLeft:10}}
+                // >
+                  <FontAwesomeIcon icon={faPenToSquare} size={10} style={{marginTop:5}}/>
+                // </Text>
             ):""
            }
+
+           <Review count={item.rating} average={0} size={19}/>
+          
            </View>
           </View>
-          <View className="mt-3">
-            <Text className="text-lg ">{item.review}</Text>
+          <View className="">
+            <Text className=" " style={{fontSize:14 ,left:20}}>{item.review}</Text>
           </View>
         </>
       ))}

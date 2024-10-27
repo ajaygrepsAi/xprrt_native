@@ -6,6 +6,16 @@ import {useFormik} from 'formik';
 import {Picker} from '@react-native-picker/picker';
 import DatePicker from 'react-native-date-picker';
 import dayjs from 'dayjs';
+import {
+  faSolid,
+  faBell,
+  faBars,
+  faPenToSquare,
+  faThin,
+  faCaretDown,
+  faHashtag
+} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 
 const Personal = () => {
@@ -87,37 +97,39 @@ const Personal = () => {
   }, []);
 
   return (
-    <ScrollView>
-      <View className="bg-purple-100">
-      <Text className="text-center text-3xl font-extrabold text-slate-950 ">
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View className="bg-white p-2">
+      <Text className="text-center text-3xl font-extrabold text-slate-950 mt-5" >
         Personal Details
       </Text>
-      <View className="mt-1 p-2" style={{marginLeft: 30}}>
+      <View className="mt-3 p-2" style={{marginLeft: 0}}>
         <View>
-          <Text className="font-extrabold text-slate-950">Name</Text>
+          <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Name</Text>
           <TextInput
-            className="border-2 rounded-xl p-2 text-xl mt-3 bg-white border-gray-50"
-            style={{width: '90%'}}
+              className="border rounded-xl  mt-3 p-3"
+             placeholder='Enter Your Name'
+            style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
             onChangeText={handleChange('name')}
             value={values.name}>
             </TextInput>
         </View>
         <View className="mt-2">
-          <Text className="font-extrabold text-slate-950">Email</Text>
+          <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Email</Text>
           <TextInput
-            className="border-2 rounded-xl p-2 mt-3 bg-white border-gray-50"
-            style={{width: '90%'}}
+            className="border rounded-xl  mt-3 p-3"
+             placeholder='Enter Your Email'
+            style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
             onChangeText={handleChange('email')}
             value={values.email}></TextInput>
         </View>
         <View className="mt-2">
-          <Text className="font-extrabold text-slate-950">Gender</Text>
+          <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Gender</Text>
 
-          <View className="border-2 rounded-xl mt-3 bg-white border-gray-50" style={{width: '90%'}}>
+          <View className=" rounded-xl mt-3 border" style={{width: '100%',borderColor:"#C8C8C8AD"}}>
             <Picker
               selectedValue={values.gender}
               onValueChange={handleChange('gender')}
-              style={{height: 50, width: '100%'}}>
+              style={{height: 51, width: '100%'}}>
               <Picker.Item label="Select Gender" value="" />
               <Picker.Item label="Male" value="male" />
               <Picker.Item label="Female" value="female" />
@@ -127,17 +139,19 @@ const Personal = () => {
         </View>
 
         <View className="mt-2">
-          <Text className="font-extrabold text-slate-950">Date Of Birth</Text>
+          <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Date Of Birth</Text>
           <TouchableOpacity
             onPress={() => setOpen(true)}
             style={{
-              borderWidth: 2,
+              // borderWidth: 2,
               borderRadius: 10,
               padding: 10,
               marginTop: 10,
-              width: '90%',
-            }} className="bg-white border-gray-50">
-            <Text className="text-xl font-bold ">{values.dob ? values.dob : 'Select Date'}</Text>
+              width: '100%',
+              height:51,
+             borderColor:"#C8C8C8AD"
+            }} className="border">
+            <Text className=" text-slate-800 " style={{fontWeight:400}}>{values.dob ? values.dob : 'Select Date'}</Text>
           </TouchableOpacity>
           <DatePicker
             modal
@@ -156,64 +170,73 @@ const Personal = () => {
         </View>
 
         <View className="mt-2">
-          <Text className="font-extrabold text-slate-950">Flat/House.No</Text>
+          <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Flat/House.No</Text>
           <TextInput
-            className="border-2 rounded-xl p-2 text-xl mt-3 bg-white border-gray-50"
-            style={{width: '90%'}}
+            className="border rounded-xl mt-3 p-3"
+            keyboardType="numeric"
+            placeholder='Enter Your Flat/House.No'
+            style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
             onChangeText={handleChange('address')}
             value={values.address}></TextInput>
         </View>
         <View className="mt-2">
-          <Text className="font-extrabold text-slate-950">Area/Sector</Text>
+          <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Area/Sector</Text>
           <TextInput
-            className="border-2 rounded-xl p-2 text-xl mt-3 bg-white border-gray-50"
-            style={{width: '90%'}}
+            className="border rounded-xl  mt-3 p-3"
+             placeholder='Enter Your Area/Sector'
+            style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
             onChangeText={handleChange('locality')}
             value={values.locality}></TextInput>
         </View>
-        <View className="flex-row mt-2">
+        <View className="flex-row mt-2 ">
           <View className="flex-1 ">
-            <Text className="font-extrabold text-slate-950">City</Text>
+            <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>City</Text>
             <TextInput
-              className="border-2 rounded-xl p-2 text-xl mt-3 bg-white border-gray-50"
-              style={{width: '90%'}}
+              className="border rounded-xl  mt-3 p-3"
+              placeholder='Enter Your City'
+              style={{width: '96%',height:51, borderColor:"#C8C8C8AD"}}
               onChangeText={handleChange('city')}
-              value={values.city}></TextInput>
+              value={values?.city}></TextInput>
           </View>
           <View className="flex-1 ">
-            <Text className="font-extrabold text-slate-950">State</Text>
+            <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>State</Text>
             <TextInput
-              className="border-2 rounded-xl p-2 text-xl mt-3 bg-white border-gray-50"
-              style={{width: '85%'}}
+             className="border rounded-xl  mt-3 p-3"
+              placeholder='Enter Your State'
+             style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               onChangeText={handleChange('state')}
-              value={userData.state}></TextInput>
+              value={values?.state}></TextInput>
           </View>
         </View>
         <View className="flex-row mt-2">
           <View className="flex-1 ">
-            <Text className="font-extrabold text-slate-950">Pincode</Text>
+            <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Pincode</Text>
             <TextInput
-              className="border-2 rounded-xl p-2 text-xl mt-3  bg-white border-gray-50 "
-              style={{width: '90%'}}
+className="border rounded-xl  mt-3 p-3"
+keyboardType="numeric"
+ placeholder='Enter Your Pincode'
+style={{width: '96%',height:51, borderColor:"#C8C8C8AD"}}
               onChangeText={handleChange('pincode')}
               value={values.pincode}></TextInput>
           </View>
           <View className="flex-1 ">
-            <Text className="font-extrabold text-slate-950">Country</Text>
+            <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Country</Text>
             <TextInput
-              className="border-2 rounded-xl p-2 text-xl mt-3 bg-white border-gray-50"
-              style={{width: '90%'}}
+              className="border rounded-xl  mt-3 p-3"
+              placeholder='Enter Your Country'
+              style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               onChangeText={handleChange('country')}
               value={values.country}></TextInput>
           </View>
         </View>
         <TouchableOpacity
-          className="border-3 rounded-2xl bg-blue-950 mt-3"
-          style={{width: '95%'}}
+          className=" rounded-2xl mt-3"
+          style={{width: 151,height:52,backgroundColor:"#6C63FF"}}
           onPress={handleSubmit}>
-          <Text className="text-2xl p-3 text-center text-white">
+          <Text className="text-2xl p-3 text-center text-white" style={{fontSize:13}}>
            {userData?.name ?  "Edit Details" :" Save Details"}
           </Text>
+          <FontAwesomeIcon icon={faHashtag} size={15} style={{position:"absolute",top:21,left:25,color:"white"}}/>
         </TouchableOpacity>
       </View>
     </View>

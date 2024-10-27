@@ -14,6 +14,7 @@ const BookingPage = () => {
   const {data} = route.params;
   const {item} = route.params;
   
+  
   const {handleChange, handleSubmit, values, setValues} = useFormik({
     initialValues: {
       name: '',
@@ -59,15 +60,16 @@ const BookingPage = () => {
 
   return (
    <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
-     <View className="p-2  ">
+     <View className=" bg-white " style={{height:"100%"}}>
       <View className="">
         <UserDetail item={data} />
       </View>
-      <View className="mt-3 border-2 rounded-2xl p-3 bg-slate-500">
+      <View style={{width:"90%",left:15,top:5,color:"#E3E3E399",}} className="border mt-4"></View>
+      <View className="mt-8 ">
         <TouchableOpacity onPress={()=>LinkingWebsite(item.website)}>
-        <Text className="text-xl font-extrabold text-amber-950">🌏 Website: Portfolio Link </Text>
+        <Text className="font-semibold" style={{fontSize:15,color:"#585858",left:15}}>🌏 Website: Portfolio Link </Text>
         </TouchableOpacity>
-        <View>
+        {/* <View>
           {item?.service?.map(item => (
             <>
               <View className="flex-row justify-between mt-2 p-2">
@@ -90,48 +92,59 @@ const BookingPage = () => {
             </>
           ))}
           
-        </View>
+        </View> */}
       </View>
       {/* Booking-contact-page for booking */}
 
-      <View className=" mt-2 border-2 rounded-2xl" >
-        <Text className="text-center p-2 text-2xl font-semibold text-slate-950">Contact Details</Text>
-        <View style={{marginLeft:20}}>
+      <View className=" mt-1 " >
+        {/* <Text className="text-center p-2 text-2xl font-semibold text-slate-950">Contact Details</Text> */}
+        <View style={{marginLeft:5 }} className="p-2">
         <View className=" mt-2 " >
-          <Text className="font-extrabold">Name</Text>
+          <Text className="font-semibold" style={{fontSize:14,color:"#3E3E3E"}}>Name</Text>
           <TextInput
-            className="border-2 rounded-xl p-2 text-xl mt-3"
-            style={{width: '90%'}}
+            className=" rounded-xl bg-white border text-lg mt-3"
+            style={{width: '100%',height:"346px",borderColor:"#C8C8C8AD"}}
             onChangeText={handleChange('name')}
+            placeholder='Enter your Name'
             value={values?.name}></TextInput>
         </View>
         <View className="mt-2">
-          <Text className="font-extrabold">Email</Text>
+          <Text className="font-semibold" style={{fontSize:14,color:"#3E3E3E"}}>Email</Text>
           <TextInput
-            className="border-2 rounded-xl p-2 mt-3"
-            style={{width: '90%'}}
+            className="border  bg-white rounded-xl text-lg  mt-3"
+            style={{width: '100%',height:"346px",borderColor:"#C8C8C8AD"}}
             onChangeText={handleChange('email')}
+            placeholder='Enter your Email'
             value={values?.email}></TextInput>
         </View>
-        <View>
-          <Text className="font-extrabold">Mobile</Text>
+        <View className="mt-2">
+          <Text className="font-semibold" style={{fontSize:14,color:"#3E3E3E"}}>Mobile</Text>
           <TextInput
-            className="border-2 rounded-xl p-2 text-xl mt-3"
-            style={{width: '90%'}}
-            onChangeText={handleChange('mobile')}
-            value={values.mobile}></TextInput>
+          keyboardType="numeric"
+          maxLength={10}
+            className="border rounded-xl text-lg mt-3"
+            style={{width: '100%',height:"346px",borderColor:"#C8C8C8AD"}}
+            // onChangeText={handleChange('mobile')}
+            onChangeText={(text) => {
+              if (text.length <= 10) {
+                handleChange('mobile')(text);
+              }
+            }}
+            placeholder='Enter Your Mobile Number'
+            value={values.mobile ? values.mobile.toString() : ''}></TextInput>
         </View>
         <View className="mt-2">
           <Text className="font-extrabold">Message</Text>
           <TextInput
-            className="border-2 rounded-xl p-2 mt-3 text-xl"
-            style={{width: '90%'}}
+            className=" border rounded-xl  mt-3 text-lg bg-white"
+            style={{width: '100%',height:110,borderColor:"#C8C8C8AD"}}
             onChangeText={handleChange('message')}
+             placeholder='Write Your Message'
             value={values.message}></TextInput>
         </View>
         
-        <TouchableOpacity className="border-2 rounded-xl bg-blue-950 mt-3" style={{width:"90%"}} onPress={handleSubmit}>
-            <Text className="text-lg p-2 text-center  text-white font-extrabold">Send Message</Text>
+        <TouchableOpacity className="p-2 rounded-xl  mt-1" style={{width:122,height:43 ,top:15,backgroundColor:"#6C63FF"}} onPress={handleSubmit}>
+            <Text className="text-lg  text-center  text-white font-extrabold">Submit</Text>
         </TouchableOpacity>
         </View>
         

@@ -1,9 +1,12 @@
 import React from 'react'
 import Onboard from '../components/Onboard'
+import { ScrollView } from 'react-native'
 
 const OnboardScreen = () => {
   return (
-    <Onboard/>
+    <ScrollView>
+      <Onboard/>
+    </ScrollView>
   )
 }
 

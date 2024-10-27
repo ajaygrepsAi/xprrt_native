@@ -16,21 +16,37 @@ export const RemoveAsyncData = async(key)=>{
 }
 
 
+// export const getGrandchildNames = (list) => {
+//     let grandchildNames = [];
+  
+//     function traverse(node, depth) {
+//       if (depth === 2 && node.name) {
+//         grandchildNames.push(node.name);
+//       } else if (Array.isArray(node.child)) {
+//         node.child.forEach(child => traverse(child, depth + 1));
+//       }
+//     }
+  
+//     list?.forEach(item => traverse(item, 0));
+  
+//     return grandchildNames;
+//   };
+
 export const getGrandchildNames = (list) => {
-    let grandchildNames = [];
-  
-    function traverse(node, depth) {
-      if (depth === 2 && node.name) {
-        grandchildNames.push(node.name);
-      } else if (Array.isArray(node.child)) {
-        node.child.forEach(child => traverse(child, depth + 1));
-      }
+  let grandchildData = []; 
+
+  function traverse(node, depth) {
+    if (depth === 2 && node.name && node.id) {
+      grandchildData.push({ name: node.name, id: node.id });
+    } else if (Array.isArray(node.child)) {
+      node.child.forEach(child => traverse(child, depth + 1));
     }
-  
-    list?.forEach(item => traverse(item, 0));
-  
-    return grandchildNames;
-  };
+  }
+
+  list?.forEach(item => traverse(item, 0)); 
+
+  return grandchildData; 
+};
   
 
 // export const getGrandchildNames = (list) => {

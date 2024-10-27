@@ -35,13 +35,14 @@ export const HttpRequest = async(data)=>{
         
       } else if (response.ok && method != "GET") {
         // Alert.alert(responseObj.message);
-        Toast.error(responseObj.message)
+        Toast.success(responseObj.message)
+        
         
       }
       return responseObj;
         
     } catch (error) {
-        // Toast.error(error.message)
+        Toast.error(error.message)
         console.log(error.message)
     }
 }

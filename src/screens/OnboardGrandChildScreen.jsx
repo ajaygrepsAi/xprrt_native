@@ -7,7 +7,7 @@ const OnboardGrandChildScreen = () => {
   const {height,width} = Dimensions.get('window')
   return (
     <ScrollView>
-      <View className="p-2 bg-purple-100" style={{width:width,height:height}}>
+      <View className="p-2 bg-white" style={{width:width,height:height}}>
      <OnboardGrandChildCategory/> 
     </View>
     </ScrollView>

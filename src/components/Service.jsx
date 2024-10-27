@@ -1,14 +1,25 @@
 import React, {useState, useEffect} from 'react';
-import {ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Dimensions, ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import {Picker} from '@react-native-picker/picker';
 import {useFormik} from 'formik';
 import {API} from '../../constants/constant';
 import {HttpRequest} from '../../data/Httprequest';
 import { GetAsyncData } from '../../utils/common';
+import {
+  faSolid,
+  faBell,
+  faBars,
+  faPenToSquare,
+  faThin,
+  faCaretDown,
+  faHashtag
+} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 const Service = () => {
   const [userData, setUserData] = useState([]);
   const [switchComponent, setSwitchComponent] = useState();
+  const {height} = Dimensions.get('window')
 
   const {handleChange, handleSubmit, values, setValues} = useFormik({
     initialValues: {
@@ -80,21 +91,24 @@ const Service = () => {
   // console.log(userData[0].project_type,"userdata in service-details")
 
   return (
-    <ScrollView>
-      <View className=" bg-purple-100" >
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View className=" bg-white" style={{height:height}}>
         <Text className=" mt-8 text-slate-950  text-2xl text-center font-extrabold ">Services/Consultation Details</Text>
+        {/* <View style={{width:"90%",top:6,left:10}} className="border"></View> */}
       <View
-        className=" rounded-xl  p-3 mt-10 bg-purple border-gray-50 "
+        className=" rounded-xl  mt-8 bg-purple border-gray-50 "
         style={{width: '90%', marginLeft: 17}}>
         <View>
-          <Text className="text-xl font-bold">Service Name</Text>
-          <View className="border-2 rounded-2xl mt-2  bg-white border-gray-50 ">
-            <TextInput className="text-lg font-semibold" onChangeText={handleChange('title')} value={values.title}/>
+          <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Service Name</Text>
+          <View className=" rounded-2xl mt-2  ">
+            <TextInput className="border rounded-xl  mt-3 p-2"
+             placeholder='Enter Your Services'
+            style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}} onChangeText={handleChange('title')} value={values.title}/>
           </View>
         </View>
-        <View className="mt-3">
-          <Text className="text-xl font-bold">Project Charges</Text>
-          <View className="border-2 rounded-2xl mt-2  bg-white border-gray-50 ">
+        <View className="mt-2">
+          <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Project Charges</Text>
+          <View className=" rounded-2xl mt-2 border " style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}>
             <Picker
               className="text-lg font-semibold "
               selectedValue={values.project_type}
@@ -111,9 +125,9 @@ const Service = () => {
 
         {values.project_type == 'consultation' ? (
           <>
-            <View className="mt-3">
-              <Text className="text-xl font-bold"> category consultation</Text>
-              <View className="border-2 rounded-2xl mt-2  bg-white border-gray-50 ">
+            <View className="mt-2">
+              <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Category consultation</Text>
+              <View className=" rounded-2xl mt-2 border " style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}>
                 <Picker
                   className="text-lg font-semibold "
                   selectedValue={values.category_consultation}
@@ -127,11 +141,16 @@ const Service = () => {
               </View>
             </View>
 
-            <View className="mt-3">
-              <Text className="text-xl font-bold"> Duration</Text>
-              <View className="border-2 rounded-2xl mt-2  bg-white border-gray-50 ">
+            <View className="mt-2 flex-row ">
+             <View className="flex-1">
+             <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}> Duration</Text>
+              <View 
+              className="border rounded-xl  mt-3"
+              placeholder='Duration'
+             style={{width: '97%',height:51, borderColor:"#C8C8C8AD"}}
+              >
                 <Picker
-                   className="text-lg font-semibold "
+                   className="text-lg  "
                   selectedValue={values.duration}
                   value={values.duration}
                   onValueChange={handleChange('duration')}
@@ -144,67 +163,112 @@ const Service = () => {
                   <Picker.Item label="2 hours" value="2-hours" />
                 </Picker>
               </View>
-            </View>
+             </View>
 
-            <View>
-              <Text className="text-xl font-bold">Price</Text>
-              <View className="border-2 rounded-2xl mt-2 bg-white border-gray-50">
-                <TextInput className="text-lg font-semibold  " onChangeText={handleChange('price')}  value={values.price}/>
+              <View className=" flex-1">
+              <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Price</Text>
+              <View className=" rounded-2xl ">
+                <TextInput className="border rounded-xl  mt-3 p-2"
+                 keyboardType="numeric"
+             placeholder='Price'
+            style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}} onChangeText={handleChange('price')}  value={values.price}/>
               </View>
             </View>
+            </View>
+
+            {/* <View className="mt-2">
+              <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Price</Text>
+              <View className=" rounded-2xl ">
+                <TextInput className="border rounded-xl  mt-3"
+             placeholder='Price'
+            style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}} onChangeText={handleChange('price')}  value={values.price}/>
+              </View>
+            </View> */}
           </>
         ) : (
           <>
-            <View>
-              <Text className="text-xl font-bold">Select Category</Text>
-              <View className="border-2 rounded-2xl mt-2 bg-white border-gray-50">
+            <View className="mt-2">
+              <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Select Category</Text>
+              <View className=" rounded-2xl mt-2 ">
                 <TextInput
-                 className="text-lg font-semibold "
+                 className="border rounded-xl p-2"
+                 placeholder='Select Category'
+                style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
                   onChangeText={handleChange('category')}
                   value={values.category}
                 />
               </View>
             </View>
 
-            <View>
-              <Text className="text-xl font-bold">Min Price</Text>
-              <View className="border-2 rounded-2xl mt-2  bg-white border-gray-50 ">
+            <View className="mt-2 flex-row" >
+              <View className="flex-1">
+              <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Price</Text>
+              <View className=" rounded-2xl mt-2   ">
                 <TextInput
-                  className="text-lg font-semibold   "
+                 keyboardType="numeric"
+                  className="border rounded-xl  mt-2 p-2"
+                  placeholder='Min Price'
+                 style={{width: '95%',height:51, borderColor:"#C8C8C8AD"}}
                   onChangeText={handleChange('min_price')}
                   value={values.min_price}
                 />
               </View>
-            </View>
-
-            <View>
-              <Text className="text-xl font-bold">Max Price</Text>
-              <View className="border-2 rounded-2xl mt-2  bg-white border-gray-50 ">
+              </View>
+              <View className="flex-1">
+              <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}></Text>
+              <View className=" rounded-2xl mt-2  ">
                 <TextInput
-                  className="text-lg font-semibold "
+                 keyboardType="numeric"
+                  className="border rounded-xl  mt-2 p-2"
+                  placeholder='Max Price'
+                 style={{width: '98%',height:51, borderColor:"#C8C8C8AD"}}
                   onChangeText={handleChange('max_price')}
                   value={values.max_price}
                 />
               </View>
             </View>
+            </View>
+
+            {/* <View className="mt-2">
+              <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Max Price</Text>
+              <View className=" rounded-2xl mt-2  ">
+                <TextInput
+                  className="border rounded-xl  mt-3"
+                  placeholder='Enter Your Name'
+                 style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
+                  onChangeText={handleChange('max_price')}
+                  value={values.max_price}
+                />
+              </View>
+            </View> */}
           </>
         )}
 
-        <View>
-          <Text className="text-xl font-bold">Description</Text>
-          <View className="border-2 rounded-2xl mt-2  bg-white border-gray-50 ">
+        <View className="mt-2">
+          <Text className="font-semibold" style={{fontSize:18,color:"#464646"}}>Description</Text>
+          <View className=" rounded-2xl mt-2  ">
             <TextInput
-              className="text-lg font-semibold "
+              className="border rounded-xl p-2"
+              placeholder='Description'
+             style={{width: '100%',height:51, borderColor:"#C8C8C8AD"}}
               onChangeText={handleChange('description')}
               value={values.description}
             />
           </View>
         </View>
 
-        <TouchableOpacity className="border-2 mt-5 p-2 rounded-xl bg-blue-900" onPress={handleSubmit}>
-           <Text className="p-2 text-xl font-bold text-center text-white">{userData ? "Edit Details" : "Save Detail"}</Text>
-        </TouchableOpacity>
+        <View className="mt-8">
+          <Text style={{fontSize:17,color:"#8F8F8F"}}>
+          Save all the details just by clicking on save button giving below
+          </Text>
+        </View>
 
+        <TouchableOpacity className="rounded-2xl mt-5"
+          style={{width:151,height:52,backgroundColor:"#6C63FF"}} onPress={handleSubmit}>
+           <Text className="text-2xl p-3 text-center text-white" style={{fontSize:13}}>{userData ? "Edit Details" : "Save Detail"}</Text>
+           <FontAwesomeIcon icon={faHashtag} size={15} style={{position:"absolute",top:20,left:25,color:"white"}}/>
+        </TouchableOpacity>
+       
       </View>
     </View>
     </ScrollView>

@@ -1,10 +1,12 @@
 import React from 'react'
-import { Text,View } from 'react-native'
+import { ScrollView, Text,View } from 'react-native'
 import OnboardChildCategory from '../components/miscellaneous/OnboardChildCategory'
 
 const OnboardChildScreen = () => {
   return (
-   <OnboardChildCategory/>
+   <ScrollView>
+    <OnboardChildCategory/>
+   </ScrollView>
   )
 }
 

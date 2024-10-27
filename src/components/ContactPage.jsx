@@ -41,46 +41,54 @@ const ContactPage = () => {
   });
 
   return (
-    <View className="p-2 bg-purple-100" style={{width:width,height:height}}>
+    <View className="p-2 bg-white" style={{width:width,height:"100%"}}>
       <View className="mt-6">
         <Text className="text-center text-3xl font-extrabold text-slate-950">Contact</Text>
       </View>
-      <View className="" style={{marginLeft:30}}>
+      <View className="" style={{marginLeft:10}}>
         <View className=" mt-20 ">
-          <Text className="font-extrabold text-slate-950 text-lg">Name</Text>
+          <Text className="font-semibold" style={{fontSize:16,color:"#3E3E3E"}}>Name</Text>
           <TextInput
-            className=" rounded-xl p-2 text-xl mt-3 bg-gray-50 "
-            style={{width: '90%'}}
+            className=" rounded-xl bg-white border  mt-3 p-2"
+            style={{width: '100%',height:"346px",borderColor:"#C8C8C8AD"}}
             onChangeText={handleChange('name')}
+            placeholder='Enter your Name'
             value={values.name}></TextInput>
         </View>
         <View className="mt-2">
-          <Text className="font-extrabold text-slate-950 mt-2 text-lg">Email</Text>
+          <Text className="font-semibold" style={{fontSize:16,color:"#3E3E3E"}}>Email</Text>
           <TextInput
-            className=" rounded-xl p-2 mt-3 bg-gray-50"
-            style={{width: '90%'}}
+             className=" rounded-xl bg-white border p-2 mt-3"
+             style={{width: '100%',height:"346px",borderColor:"#C8C8C8AD"}}
             onChangeText={handleChange('email')}
+            placeholder='Enter your Email'
             value={values.email}></TextInput>
         </View>
-        <View>
-          <Text className="font-extrabold text-slate-950 mt-2 text-lg">Mobile</Text>
+        <View className="mt-2">
+          <Text className="font-semibold" style={{fontSize:16,color:"#3E3E3E"}}>Mobile</Text>
           <TextInput
-            className=" rounded-xl p-2 text-xl mt-3 bg-gray-50"
-            style={{width: '90%'}}
+          keyboardType="numeric"
+          maxLength={10}
+          // minLength={10}
+             className=" rounded-xl bg-white border p-2 mt-3"
+             style={{width: '100%',height:"346px",borderColor:"#C8C8C8AD"}}
             onChangeText={handleChange('mobile')}
+            placeholder='Enter your Mobile Number'
             value={values.mobile}></TextInput>
         </View>
         <View className="mt-2">
-          <Text className="font-extrabold text-slate-950 text-lg">Message</Text>
+          <Text className="font-semibold" style={{fontSize:16,color:"#3E3E3E"}}>Message</Text>
           <TextInput
-            className=" rounded-xl p-2 mt-3 text-xl bg-gray-50"
-            style={{width: '90%',height:110}}
+           
+             className=" border rounded-xl  mt-3 p-2 bg-white"
+             style={{width: '100%',height:110,borderColor:"#C8C8C8AD"}}
             onChangeText={handleChange('message')}
+            placeholder='Write Your Message'
             value={values.message}></TextInput>
         </View>
         
-        <TouchableOpacity className="border-2 rounded-xl bg-blue-950 mt-10" style={{width:"90%"}} onPress={handleSubmit}>
-            <Text className="text-lg p-2 text-center  text-white font-extrabold">Send Message</Text>
+        <TouchableOpacity className="p-2 rounded-xl  mt-1" style={{width:122,height:43 ,top:30,backgroundColor:"#6C63FF"}} onPress={handleSubmit}>
+            <Text className="text-lg  text-center  text-white font-extrabold">Send Message</Text>
         </TouchableOpacity>
         
        

@@ -12,33 +12,37 @@ const ServiceDetails = ({item,id,data}) => {
 
   return (
  
-         <View className="p-2 border-2 rounded-2xl mt-3"> 
+         <View className="p-2 border-2 rounded-2xl mt-3" style={{backgroundColor:"#233E8A" }}> 
        <View className="flex-row mt-2">
           <View className=" flex-1 ">
-             <Text className="text-2xl font-semibold">serviceDetails </Text>
+             <Text className=" text-white font-semibold" style={{fontSize:16}}>SERVICES </Text>
+             <View style={{width:33,top:6,left:10}} className="border border-white"></View>
           </View>
          <View >
-            <Text className="text-xl font-semibold">{item?.total_ratings} ({item?.avg_ratings})</Text>
+            <Text className="text-white font-semibold" style={{fontSize:16}}>{item?.total_ratings} ({item?.avg_ratings})</Text>
          </View>
        </View>
-       <View className="items-end mt-2">
-       <Review count={item?.total_ratings?item?.total_ratings:0} average={item?.avg_ratings?item?.avg_ratings:0}/>
-       </View>
+       <View className="items-end top-3 left-2">
+       <Review count={item?.total_ratings?item?.total_ratings:0} size={21}/>
+       </View >
+
        {
         item?.service?.map(item => (
            <>
-           <View className="flex-row justify-between mt-2">
-              <Text className=" text-lg">{item.title}</Text>
+           <View className="flex-row justify-between mt-7 ">
+              <Text className="" style={{fontSize:16,color:"#C3C3C3"}}>{item.title}</Text>
               <View className="flex-row">
-              <Text className="text-lg">${item.min_price} - </Text>
-              <Text className="text-lg">${item.max_price}  </Text>
+              <Text className="text-white" style={{fontSize:16}}>${item.min_price} - </Text>
+              <Text className="text-white">${item.max_price}  </Text>
               </View>
+              
            </View>
+           <View style={{width:"100%",color:"#757C8F"}} className="border mt-2" ></View>
            </>
         ))
        }
-       <TouchableOpacity className=" border-2 p-2 mt-4 rounded-2xl bg-blue-950" onPress={handleBook}>
-        <Text className="text-xl text-center text-white font-extrabold">Contact Me</Text>
+       <TouchableOpacity className=" border-2 flex justify-center  mt-10 rounded-2xl bg-white" style={{height:55}} onPress={handleBook}>
+        <Text className=" text-center font-extrabold " style={{fontSize:16,color:"#3930D3"}}>Contact Me</Text>
        </TouchableOpacity>
     </View>
    
